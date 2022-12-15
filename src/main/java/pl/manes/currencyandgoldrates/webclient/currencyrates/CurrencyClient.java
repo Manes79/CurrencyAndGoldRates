@@ -9,24 +9,33 @@ import pl.manes.currencyandgoldrates.webclient.currencyrates.dto.OpenCurrencyCur
 public class CurrencyClient {
 
     public static final String CHF_CURRENCY = "https://api.nbp.pl/api/exchangerates/rates/a/chf";
-
+    public static final String EUR_CURRENCY = "https://api.nbp.pl/api/exchangerates/rates/a/eur";
     private final RestTemplate restTemplate = new RestTemplate();
 
-
-    public CurrencyDTO getSingleCurrency() {
-        OpenCurrencyCurrencyDTO openCurrencyCurrencyDTO = callGetMethod(OpenCurrencyCurrencyDTO.class);
+    public CurrencyDTO getSwissFrancCurrency() {
+        OpenCurrencyCurrencyDTO openCurrencyCurrencyDTO = callMethodForSwissFrancCurrency(OpenCurrencyCurrencyDTO.class);
         return CurrencyDTO.builder()
-                .table(openCurrencyCurrencyDTO.getTable().getTable())
                 .currency(openCurrencyCurrencyDTO.getCurrency().getCurrency())
-                .code(openCurrencyCurrencyDTO.getCode().getCode())
-                .no(openCurrencyCurrencyDTO.getRates().iterator().next().getNo())
                 .effectiveDate(openCurrencyCurrencyDTO.getRates().iterator().next().getEffectiveDate())
                 .mid(openCurrencyCurrencyDTO.getRates().iterator().next().getMid())
-            .build();
+                .build();
     }
 
-    private <T> T callGetMethod(Class<T> responseType, Object... objects) {
+    public CurrencyDTO getEuroCurrency() {
+        OpenCurrencyCurrencyDTO openCurrencyCurrencyDTO = callMethodForEuroCurrency(OpenCurrencyCurrencyDTO.class);
+        return CurrencyDTO.builder()
+                .currency(openCurrencyCurrencyDTO.getCurrency().getCurrency())
+                .effectiveDate(openCurrencyCurrencyDTO.getRates().iterator().next().getEffectiveDate())
+                .mid(openCurrencyCurrencyDTO.getRates().iterator().next().getMid())
+                .build();
+    }
+
+    private <T> T callMethodForSwissFrancCurrency(Class<T> responseType, Object... objects) {
         return restTemplate.getForObject(CHF_CURRENCY, responseType, objects);
+    }
+
+    private <T> T callMethodForEuroCurrency(Class<T> responseType, Object... objects) {
+        return restTemplate.getForObject(EUR_CURRENCY, responseType, objects);
     }
 
 }

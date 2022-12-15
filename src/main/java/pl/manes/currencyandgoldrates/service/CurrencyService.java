@@ -11,7 +11,11 @@ public class CurrencyService {
 
     private final CurrencyClient currencyClient;
 
+    public CurrencyDTO getSwissFrancCurrency() {
+        return currencyClient.getSwissFrancCurrency();
+    }
+
     public CurrencyDTO getEuroCurrency() {
-        return currencyClient.getSingleCurrency();
+        return currencyClient.getEuroCurrency();
     }
 }

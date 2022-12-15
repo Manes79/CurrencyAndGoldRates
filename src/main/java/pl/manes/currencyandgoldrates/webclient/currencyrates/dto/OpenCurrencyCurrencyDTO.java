@@ -14,12 +14,7 @@ import java.util.List;
 @JacksonStdImpl
 public class OpenCurrencyCurrencyDTO {
 
-    private OpenTableDTO table;
-
     private OpenCurrencyDto currency;
-
-
-    private OpenCodeDto code;
 
     @JsonProperty(value = "rates")
     private List<OpenRatesDTO> rates;
