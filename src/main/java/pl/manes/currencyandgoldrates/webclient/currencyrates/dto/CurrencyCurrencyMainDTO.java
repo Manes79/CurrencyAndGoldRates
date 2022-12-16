@@ -6,12 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @JacksonStdImpl
-public class OpenCodeDto {
+public class CurrencyCurrencyMainDTO {
 
-    @JsonProperty(value = "code")
-    private String code;
+    private CurrencyMainDto currency;
+
+    @JsonProperty(value = "rates")
+    private List<RatesMainDTO> rates;
+
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JacksonStdImpl
-public class OpenRatesDTO {
+public class RatesMainDTO {
 
     @JsonProperty(value = "effectiveDate")
     private String effectiveDate;

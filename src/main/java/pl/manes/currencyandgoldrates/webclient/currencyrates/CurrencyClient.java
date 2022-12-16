@@ -3,30 +3,36 @@ package pl.manes.currencyandgoldrates.webclient.currencyrates;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import pl.manes.currencyandgoldrates.dto.CurrencyDTO;
-import pl.manes.currencyandgoldrates.webclient.currencyrates.dto.OpenCurrencyCurrencyDTO;
+import pl.manes.currencyandgoldrates.webclient.currencyrates.dto.CurrencyCurrencyMainDTO;
 
 @Component
 public class CurrencyClient {
 
     public static final String CHF_CURRENCY = "https://api.nbp.pl/api/exchangerates/rates/a/chf";
+
     public static final String EUR_CURRENCY = "https://api.nbp.pl/api/exchangerates/rates/a/eur";
+
     private final RestTemplate restTemplate = new RestTemplate();
 
     public CurrencyDTO getSwissFrancCurrency() {
-        OpenCurrencyCurrencyDTO openCurrencyCurrencyDTO = callMethodForSwissFrancCurrency(OpenCurrencyCurrencyDTO.class);
+
+        CurrencyCurrencyMainDTO currencyCurrencyMainDTO = callMethodForSwissFrancCurrency(CurrencyCurrencyMainDTO.class);
+
         return CurrencyDTO.builder()
-                .currency(openCurrencyCurrencyDTO.getCurrency().getCurrency())
-                .effectiveDate(openCurrencyCurrencyDTO.getRates().iterator().next().getEffectiveDate())
-                .mid(openCurrencyCurrencyDTO.getRates().iterator().next().getMid())
+                .currency(currencyCurrencyMainDTO.getCurrency().getCurrency())
+                .effectiveDate(currencyCurrencyMainDTO.getRates().iterator().next().getEffectiveDate())
+                .mid(currencyCurrencyMainDTO.getRates().iterator().next().getMid())
                 .build();
     }
 
     public CurrencyDTO getEuroCurrency() {
-        OpenCurrencyCurrencyDTO openCurrencyCurrencyDTO = callMethodForEuroCurrency(OpenCurrencyCurrencyDTO.class);
+
+        CurrencyCurrencyMainDTO currencyCurrencyMainDTO = callMethodForEuroCurrency(CurrencyCurrencyMainDTO.class);
+
         return CurrencyDTO.builder()
-                .currency(openCurrencyCurrencyDTO.getCurrency().getCurrency())
-                .effectiveDate(openCurrencyCurrencyDTO.getRates().iterator().next().getEffectiveDate())
-                .mid(openCurrencyCurrencyDTO.getRates().iterator().next().getMid())
+                .currency(currencyCurrencyMainDTO.getCurrency().getCurrency())
+                .effectiveDate(currencyCurrencyMainDTO.getRates().iterator().next().getEffectiveDate())
+                .mid(currencyCurrencyMainDTO.getRates().iterator().next().getMid())
                 .build();
     }
 
